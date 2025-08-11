@@ -1,7 +1,7 @@
 import React from "react";
 
 const ItemCard = ({ data }) => {
-  console.log("This is item card data:", data);
+  
   return (
     <div className="flex justify-between py-5 border-b-2 border-gray-200  last:border-b-0">
       <div className=" p-2 w-4/5">

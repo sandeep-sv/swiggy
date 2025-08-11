@@ -4,6 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import Rescard from './Rescard';
+import { Link } from 'react-router-dom';
 
 
 const Corousal2 = () => {
@@ -32,8 +33,7 @@ const Corousal2 = () => {
             <div className='slider-container'>
             <Slider {...settings}>
                 {
-                    restraunts.map((res)=> <Rescard data = {res} />)
-                    
+                    restraunts.map((res)=><Link to={`/restaurant/${res?.info?.id}`}><Rescard data = {res} /></Link>)
                 }
             </Slider>
             </div>

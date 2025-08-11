@@ -2,6 +2,7 @@ import React, { useEffect, useMemo } from "react";
 import Nav from "./nav";
 import { useParams } from "react-router-dom";
 import CategoryCard from "./MenuComponents/CategoryCard";
+import MenuShimmer from "./MenuComponents/MenuShimmer";
 
 const ResMenu = () => {
   const { id } = useParams();
@@ -16,9 +17,29 @@ const ResMenu = () => {
       ) ?? []
     );
   }, [groupedCards]);
+  const liscense = useMemo(() => {
+    return (
+      groupedCards?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+        (card) =>
+          card?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.RestaurantLicenseInfo"
+      ) ?? []
+    );
+  }, [groupedCards]);
+
+  const address = useMemo(() => {
+    return (
+      groupedCards?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
+        (card) =>
+          card?.card?.card?.["@type"] ===
+          "type.googleapis.com/swiggy.presentation.food.v2.RestaurantAddress"
+      ) ?? []
+    );
+  }, [groupedCards]);
 
   if (categories) {
     console.log("this is grps cards:", categories);
+    console.log("this is liscense:", address);
   }
 
   useEffect(() => {
@@ -35,6 +56,10 @@ const ResMenu = () => {
     fetchData();
   }, [id]);
 
+    if (!resInfo || !groupedCards) {
+    return <MenuShimmer />;
+    }
+
   return (
     <div>
       <Nav />
@@ -43,12 +68,29 @@ const ResMenu = () => {
           {resInfo?.cards[2]?.card?.card?.info?.name}
         </h1>
         <p className="text-center text-gray-500 text-lg">Menu</p>
-        {
-            categories.map((category) =>
-              <CategoryCard data={category} />
-            )
-        }
+        {categories.map((category) => (
+          <CategoryCard data={category} />
+        ))}
+        <div className="bg-gray-300 p-4 h-64">
+          <div className="flex items-center gap-4 border-b-2 border-gray-400 pb-4 mt-4">
+            <div>
+              <img
+                alt="liscence-img"
+                className="w-30 h-7"
+                src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_120,h_60/fssai_final_edss9i.png"
+              />
+            </div>
+            <div>
+              <h1>{liscense[0]?.card?.card?.text[0]}</h1>
+            </div>
+          </div>
+          <div className="mt-6">
+            <h1 className="text-xl font-semibold">{address[0]?.card?.card?.name}</h1>
+            <h1 className="text-gray-600">({address[0]?.card?.card?.area})</h1>
+            <h1 className="text-gray-600">{address[0]?.card?.card?.completeAddress}</h1>
 
+          </div>
+        </div>
       </div>
     </div>
   );
