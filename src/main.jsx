@@ -7,6 +7,7 @@ import Banner from './components/Banner.jsx'
 import { Provider } from 'react-redux'
 import appStore from './utils/appStore.js'
 import ResMenu from './components/ResMenu.jsx'
+import SearchResults from './components/SearchComponents/SearchResults.jsx'
 
 
 const router = createBrowserRouter([
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path:"/restaurant/:id",
     element:<ResMenu />
+  },
+  {
+    path:"/searchResults/:dish",
+    element:<SearchResults/>
   }
   
 ])

@@ -15,8 +15,13 @@ const ItemCard = ({ data }) => {
         </p>
         <p className="text-gray-500">{data?.card?.info?.description}</p>
       </div>
-      <div className="w-1/5 h-[160px]  p-3 bg-slate-300 rounded-2xl">
+      <div className="w-1/5 h-[160px]  p-3 bg-slate-300 rounded-2xl relative">
         <img alt="item-img" className="w-full h-full object-cover rounded-2xl" src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/"+data?.card?.info?.imageId} />
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-xl w-[40%] cursor-pointer">
+          <div>
+            <h1 className="text-center">Add+</h1>
+          </div>
+        </div>
       </div>
     </div>
   );
